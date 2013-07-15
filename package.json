@@ -1,0 +1,11 @@
+{
+  "name": "isMobile",
+  "version": "0.1.0",
+  "description": "A simple JS library that detects mobile devices",
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-contrib-jasmine": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-uglify": "*"
+  }
+}
