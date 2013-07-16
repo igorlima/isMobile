@@ -1,5 +1,4 @@
 describe "Android", ->
-
   [mobile, userAgent] = [null, null]
 
   beforeEach ->
