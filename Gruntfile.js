@@ -4,14 +4,14 @@ module.exports = function(grunt) {
       isMobile: {
         src: ['isMobile.js'],
         options: {
-          specs:   'tests/spec/*.js',
+          specs:   'tests/tmp/*.js',
           version: '1.3.1'
         }
       },
       isMobileMin: {
         src: ['isMobile.min.js'],
         options: {
-          specs:   'tests/spec/*.js',
+          specs:   'tests/tmp/*.js',
           version: '1.3.1'
         }
       }
@@ -26,7 +26,33 @@ module.exports = function(grunt) {
     },
 
     jshint: {
-      all: ['Gruntfile.js', 'isMobile.js', 'tests/spec/**/*.js']
+      all: ['Gruntfile.js', 'isMobile.js']
+    },
+
+    coffee: {
+      options: {
+        sourceMap: true,
+        sourceRoot: './spec'
+      },
+      glob_to_multiple: {
+        expand: true,
+        flatten: true,
+        cwd: 'tests/spec/',
+        src: ['**/*.coffee'],
+        dest: 'tests/tmp/',
+        ext: '.js'
+      }
+    },
+
+    watch: {
+      coffee: {
+        files: ['tests/spec/**/*.coffee'],
+        tasks: ['coffee', 'jasmine']
+      },
+      jasmine: {
+        files: ['isMobile.js'],
+        tasks: ['jshint', 'uglify', 'jasmine']
+      }
     }
 
   });
@@ -34,7 +60,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.registerTask('default', ['jshint', 'uglify', 'jasmine']);
+  grunt.registerTask('default', ['jshint', 'uglify', 'coffee', 'jasmine']);
 
 };
