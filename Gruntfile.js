@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
   grunt.initConfig({
+
     jasmine: {
       isMobile: {
         src: ['isMobile.js'],
